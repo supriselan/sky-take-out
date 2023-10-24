@@ -18,7 +18,7 @@ public interface EmployeeMapper {
 
     /**
      * 插入员工数据
-     * @param
+     * @param employee
      * @return employee
      * @author LanL
      * @date 2023/10/24 20:55
