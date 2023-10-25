@@ -96,7 +96,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.insert(employee);
     }
 
-    /***
+    /**
      * 分页查询
      * @param
      * @return
@@ -117,7 +117,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total,recoreds);
     }
 
-    /***
+    /**
      * 启用禁用员工账号
      * @param
      * @return
