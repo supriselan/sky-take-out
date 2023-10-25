@@ -30,7 +30,7 @@ public interface EmployeeMapper {
             "(#{name},#{username},#{password},#{phone},#{sex},#{idNumber},#{createTime},#{updateTime},#{createUser},#{updateUser},#{status})")
     void insert(Employee employee);
 
-    /***
+    /**
      * 分页查询
      * @param
      * @return
@@ -39,7 +39,7 @@ public interface EmployeeMapper {
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
-    /***
+    /**
      * 动态修改属性
      * @param
      * @return
@@ -47,4 +47,14 @@ public interface EmployeeMapper {
      * @date 2023/10/25 0:46
      */
     void update(Employee employee);
+
+    /**
+     * 根据id查询信息
+     * @param
+     * @return
+     * @author LanL
+     * @date 2023/10/25 19:11
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee getByid(Long id);
 }
