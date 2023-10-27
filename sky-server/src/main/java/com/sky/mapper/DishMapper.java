@@ -46,4 +46,14 @@ public interface DishMapper {
      */
     @Delete("delete from dish where id = #{id}")
      void deleteById(Long id);
+
+    /**
+     * 根据id动态修改菜品基本信息
+     * @param  dish
+     * @return void
+     * @author LanL
+     * @date 2023/10/27 23:44
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Dish dish);
 }

@@ -5,9 +5,11 @@ import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Update;
 import org.apache.xmlbeans.impl.inst2xsd.RussianDollStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -75,5 +77,26 @@ public class DishController {
         return Result.success();
     }
 
+    /**
+     * 根据id查询菜品
+     * @param id
+     * @return com.sky.result.Result<com.sky.vo.DishVO>
+     * @author LanL
+     * @date 2023/10/27 23:26
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询菜品")
+    public Result<DishVO> getById(@PathVariable Long id){
+        log.info("根据id查询菜品：{}",id);
+        DishVO dishVO=dishService.getByIdWithFlavor(id);
+        return Result.success(dishVO);
+    }
 
+    @PutMapping
+    @ApiOperation("修改菜品")
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("修改菜品：{} ",dishDTO);
+        dishService.updateWithFlavor(dishDTO);
+        return null;
+    }
 }

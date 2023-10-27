@@ -16,6 +16,7 @@ import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,7 @@ public class DishServiceImpl implements DishService {
 
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+
     /**
      *
      * 新增菜品和对应的口味
@@ -50,7 +52,6 @@ public class DishServiceImpl implements DishService {
      * @author LanL
      * @date 2023/10/26 23:17
      */
-    @Override
     public void saveWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
 
@@ -78,14 +79,12 @@ public class DishServiceImpl implements DishService {
      * @author LanL
      * @date 2023/10/27 13:01
      */
-    @Override
     public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
         PageHelper.startPage(dishPageQueryDTO.getPage(),dishPageQueryDTO.getPageSize());
         Page<DishVO> page=dishMapper.pageQuery(dishPageQueryDTO);
         return new PageResult(page.getTotal(),page.getResult());
     }
 
-    @Override
     public void deleteBatch(List<Long> ids) {
         //判断当前菜品是否能够删除--是否存在起售中的菜品
         for (Long id : ids) {
@@ -109,4 +108,58 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.deleteByDishId(id);
         }
     }
+
+    /**
+     * 根据id查询对应口味数据
+     * @param id
+     * @return com.sky.vo.DishVO
+     * @author LanL
+     * @date 2023/10/27 23:28
+     */
+    public DishVO getByIdWithFlavor(Long id) {
+        //1.根据id查询菜品数据
+        Dish dish = dishMapper.getById(id);
+
+        //2.根据菜品id查询口味数据
+        List<DishFlavor> dishFlavors = dishFlavorMapper.getByDishId(id);
+
+        //3.根据查询到的数据封装到VO
+        DishVO dishVO =new DishVO();
+        BeanUtils.copyProperties(dish, dishVO);
+        dishVO.setFlavors(dishFlavors);
+
+        return dishVO;
+    }
+
+    /**
+     * 根据id修改菜品基本信息和口味信息
+     * @param dishDTO
+     * @return void
+     * @author LanL
+     * @date 2023/10/27 23:40
+     */
+    @Override
+    public void updateWithFlavor(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+
+        //1修改菜品基本信息
+        dishMapper.update(dish);
+
+        //2.删除原有的口味数据
+        dishFlavorMapper.deleteByDishId(dish.getId());
+
+        //3.重新插入口味数据
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if (flavors != null && flavors.size() > 0){
+
+            flavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dishDTO.getId());
+            });
+            //向口味表添加数据
+            dishFlavorMapper.insertBatch(flavors);
+        }
+    }
+
+
 }
