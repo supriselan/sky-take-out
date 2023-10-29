@@ -40,6 +40,13 @@ public interface SetmealMapper {
     @Delete("delete from setmeal where id = #{id}")
     void deleteById(Long setmealId);
 
+    /**
+     * 修改菜单
+     * @param  dish
+     * @return void
+     * @author LanL
+     * @date 2023/10/29 17:41
+     */
     @AutoFill(value = OperationType.UPDATE)
     void update(Setmeal dish);
 
