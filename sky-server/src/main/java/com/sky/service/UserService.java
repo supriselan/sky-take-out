@@ -9,7 +9,7 @@ public interface UserService {
 
     /**
      * 微信登录
-     * @param  userLoginVO
+     * @param  userLoginDTO
      * @return com.sky.entity.User
      * @author LanL
      * @date 2023/11/3 22:53
