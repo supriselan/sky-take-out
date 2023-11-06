@@ -7,11 +7,21 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Author lanling
+ * @Date 2023/11/4 10:36
+ * @PackageName:com.sky.mapper
+ * @ClassName: UserMapper
+ * @Description: TODO
+ * @Version 1.0
+ */
+
 @Mapper
 public interface UserMapper {
 
     /**
      * 根据openid查询用户
+     *
      * @param openid
      * @return
      */
@@ -20,6 +30,7 @@ public interface UserMapper {
 
     /**
      * 插入数据
+     *
      * @param user
      */
     void insert(User user);
@@ -31,3 +42,4 @@ public interface UserMapper {
 
     Integer queryNewCustomers(Map map);
 }
+

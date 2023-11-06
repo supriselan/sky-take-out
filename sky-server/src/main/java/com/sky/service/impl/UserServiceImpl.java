@@ -1,4 +1,5 @@
 package com.sky.service.impl;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sky.constant.MessageConstant;
@@ -12,21 +13,21 @@ import com.sky.utils.HttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.tags.EditorAwareTag;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @projectName: sky-take-out
- * @package: com.sky.service.impl
- * @className: UserServiceImpl
- * @author: lanL
- * @description: TODO
- * @date: 2023/11/6 23:28
- * @version: 1.0
+ * @Author lanling
+ * @Date 2023/11/4 10:27
+ * @PackageName:com.sky.service.impl
+ * @ClassName: UserServiceImpl
+ * @Description: TODO
+ * @Version 1.0
  */
+
+
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
