@@ -9,6 +9,7 @@
             #{item}
         </foreach>
     </select>
+    <select id="getSetmealIdByDishIds" resultType="java.lang.Long"></select>
     <insert id="insertBatch" parameterType="list">
         insert into setmeal_dish
         (setmeal_id,dish_id,name,price,copies)
